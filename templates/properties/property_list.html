@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}Properties{% if location_query %} in {{ location_query }}{% endif %} - Vacation Rentals{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1>
+                {% if location_query %}
+                    Properties in {{ location_query }}
+                {% else %}
+                    All Properties
+                {% endif %}
+            </h1>
+            <p class="text-muted">Found {{ total_properties }} propert{{ total_properties|pluralize:"y,ies" }}</p>
+        </div>
+    </div>
+
+    <!-- Search Filter -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <form action="{% url 'properties:property_list' %}" method="get">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        name="location" 
+                        placeholder="Search by location..."
+                        value="{{ location_query }}"
+                    >
+                    <button class="btn btn-primary" type="submit">Search</button>
+                    {% if location_query %}
+                    <a href="{% url 'properties:property_list' %}" class="btn btn-secondary">Clear</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Property Grid -->
+    {% if page_obj %}
+    <div class="row">
+        {% for property in page_obj %}
+        <div class="col-md-4 mb-4">
+            <div class="card property-card">
+                {% if property.get_first_image %}
+                <img src="{{ property.get_first_image }}" class="card-img-top property-image" alt="{{ property.title }}">
+                {% else %}
+                <img src="https://via.placeholder.com/400x250?text=No+Image" class="card-img-top property-image" alt="{{ property.title }}">
+                {% endif %}
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{ property.title }}</h5>
+                    <p class="card-text text-muted">
+                        <small>📍 {{ property.location.city }}, {{ property.location.state }}</small>
+                    </p>
+                    <p class="card-text">
+                        <span class="badge bg-info">{{ property.property_type }}</span>
+                        🛏️ {{ property.bedrooms }} bed{{ property.bedrooms|pluralize }} 
+                        🚿 {{ property.bathrooms }} bath{{ property.bathrooms|pluralize }}
+                        👥 {{ property.max_guests }} guest{{ property.max_guests|pluralize }}
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="text-primary mb-0">${{ property.price_per_night }}/night</h4>
+                        <a href="{% url 'properties:property_detail' property.pk %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if location_query %}location={{ location_query }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if location_query %}location={{ location_query }}&{% endif %}page={{ num }}">{{ num }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if location_query %}location={{ location_query }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Next</span>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+    {% else %}
+    <div class="alert alert-info text-center">
+        <h4>No properties found</h4>
+        <p>Try adjusting your search criteria</p>
+        <a href="{% url 'properties:property_list' %}" class="btn btn-primary">View All Properties</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
