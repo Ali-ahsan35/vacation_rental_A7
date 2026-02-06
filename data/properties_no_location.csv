@@ -1,0 +1,21 @@
+title,description,property_type,bedrooms,bathrooms,max_guests,price_per_night,address,amenities,is_available
+Luxury Beachfront Villa,"Experience ultimate luxury in this stunning beachfront villa with panoramic ocean views, private pool, and direct beach access.",Villa,5,4,10,450.00,123 Ocean Drive,"WiFi,Pool,Beach Access,BBQ Grill,Parking,Air Conditioning",true
+Cozy Mountain Cabin,"Escape to this charming mountain retreat perfect for families, featuring rustic decor and modern amenities.",Cabin,3,2,6,185.00,456 Mountain View Road,"WiFi,Fireplace,Hiking Trails,Parking,Kitchen,Heating",true
+Downtown City Loft,"Modern loft in the heart of downtown with stunning skyline views and walking distance to restaurants and attractions.",Loft,2,2,4,275.00,789 Urban Street Apt 5A,"WiFi,Gym,Parking,Elevator,City View,Air Conditioning",true
+Lakeside Cottage,"Peaceful lakeside cottage with private dock, perfect for fishing and water activities.",Cottage,4,3,8,320.00,321 Lakeshore Lane,"WiFi,Dock,Kayaks,Fireplace,BBQ,Kitchen",true
+Historic Charleston Home,"Beautiful historic home with charming courtyard and modern updates.",House,4,3,8,295.00,654 Heritage Avenue,"WiFi,Courtyard,Parking,Kitchen,Laundry,Air Conditioning",true
+Ski-In Ski-Out Condo,"Ultimate ski vacation condo with direct slope access and hot tub.",Condo,3,2,6,550.00,987 Powder Ridge Condo 12B,"WiFi,Hot Tub,Ski Storage,Parking,Fireplace,Heating",true
+Beach House Paradise,"Family-friendly beach house with multiple decks and game room.",House,6,4,12,425.00,147 Coastline Way,"WiFi,Pool,Game Room,Beach Access,Parking,BBQ",true
+Wine Country Estate,"Luxurious estate in wine country with vineyard views and wine cellar.",Estate,5,5,10,650.00,258 Vineyard Heights,"WiFi,Wine Cellar,Pool,Hot Tub,Gourmet Kitchen,Parking",true
+Desert Oasis Villa,"Modern desert retreat with infinity pool and stunning sunset views.",Villa,4,4,8,375.00,369 Desert Vista Drive,"WiFi,Pool,Outdoor Kitchen,BBQ,Parking,Air Conditioning",true
+Island Tropical Bungalow,"Authentic island bungalow surrounded by lush gardens.",Bungalow,2,1,4,225.00,741 Tropical Paradise Lane,"WiFi,Garden,Hammock,Bikes,Outdoor Shower,Ceiling Fans",true
+Modern Penthouse Suite,"Stunning penthouse with rooftop terrace and city views.",Penthouse,3,3,6,580.00,852 Skyline Boulevard PH,"WiFi,Rooftop Terrace,Concierge,Gym,Parking,Air Conditioning",true
+Rustic Farmhouse Retreat,"Charming farmhouse on 10 acres with peaceful countryside views.",Farmhouse,4,2,8,265.00,963 Country Road,"WiFi,Garden,Fire Pit,Parking,Kitchen,Laundry",true
+Oceanfront Apartment,"Bright oceanfront apartment with private balcony.",Apartment,2,2,4,310.00,159 Seaside Avenue Apt 8C,"WiFi,Ocean View,Balcony,Parking,Beach Access,Air Conditioning",true
+Mountain Lodge,"Spacious mountain lodge with stone fireplace and valley views.",Lodge,6,4,14,520.00,753 Alpine Ridge,"WiFi,Fireplace,Hot Tub,Game Room,Parking,Heating",true
+Romantic Treehouse,"Unique treehouse retreat nestled in the forest canopy.",Treehouse,1,1,2,195.00,486 Forest Trail,"WiFi,Deck,Nature Views,Parking,Kitchenette,Heating",true
+Urban Industrial Loft,"Converted warehouse loft with exposed brick and high ceilings.",Loft,2,1,4,295.00,357 Factory Street Loft 3,"WiFi,Parking,Open Floor Plan,Kitchen,Air Conditioning,City View",true
+Coastal Cliff House,"Spectacular cliff-top home with ocean views and beach access.",House,5,4,10,625.00,951 Cliff Edge Drive,"WiFi,Ocean View,Beach Access,Hot Tub,Fireplace,Parking",true
+Charming Garden Cottage,"Quaint cottage surrounded by blooming gardens.",Cottage,2,1,4,175.00,246 Garden Lane,"WiFi,Garden,Patio,Parking,Kitchen,Fireplace",true
+Luxury Golf Villa,"Premium villa on golf course with private putting green.",Villa,4,3,8,475.00,159 Fairway Circle,"WiFi,Golf Course,Pool,Gym,Parking,Air Conditioning",true
+Waterfront Boathouse,"Unique boathouse with boat slip and waterfront views.",Boathouse,3,2,6,340.00,852 Marina Drive,"WiFi,Boat Slip,Kayaks,Dock,Fishing Gear,Parking",true
