@@ -61,10 +61,8 @@ class Property(models.Model):
     )
     
     # DECIMAL - Number of bathrooms (can be 2.5, 3.5, etc.)
-    bathrooms = models.DecimalField(
-        max_digits=3,  # Total digits: 3
-        decimal_places=1,  # Decimal places: 1 (e.g., 2.5)
-        default=1.0,
+    bathrooms = models.PositiveIntegerField(
+        default=0,
         help_text="Number of bathrooms"
     )
     
