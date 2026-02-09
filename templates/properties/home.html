@@ -9,25 +9,27 @@
         <h1 class="display-3 fw-bold mb-4">Find Your Perfect Vacation Rental</h1>
         <p class="lead mb-5">Discover amazing properties in beautiful locations</p>
         
-        <!-- Search Form -->
+        <!-- Search Form with Glass Effect -->
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <form action="{% url 'properties:property_list' %}" method="get" class="position-relative">
-                    <div class="input-group input-group-lg">
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            id="location-search" 
-                            name="location" 
-                            placeholder="Where do you want to go? (e.g., Miami, Aspen, California)"
-                            autocomplete="off"
-                        >
-                        <button class="btn btn-warning btn-lg" type="submit">
-                            🔍 Search
-                        </button>
-                    </div>
-                    <div id="autocomplete-list" class="autocomplete-items"></div>
-                </form>
+                <div class="search-wrapper">
+                    <form action="{% url 'properties:property_list' %}" method="get" class="position-relative">
+                        <div class="input-group input-group-lg">
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="location-search" 
+                                name="location" 
+                                placeholder="Where do you want to go? (e.g., Miami, Aspen, California)"
+                                autocomplete="off"
+                            >
+                            <button class="btn btn-warning btn-lg" type="submit">
+                                <i class="bi bi-search"></i> Search
+                            </button>
+                        </div>
+                        <div id="autocomplete-list" class="autocomplete-items"></div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -77,7 +79,7 @@
                     <span style="font-size: 3rem;">🔍</span>
                 </div>
                 <h4>Search</h4>
-                <p>Find your perfect vacation rental by location, amenities, or price</p>
+                <p>Find your perfect vacation rental by location</p>
             </div>
             <div class="col-md-4">
                 <div class="mb-3">
