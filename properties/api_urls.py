@@ -17,15 +17,11 @@ from rest_framework.routers import DefaultRouter
 from .api_views import LocationViewSet, PropertyViewSet
 
 
-# ==================== CREATE ROUTER ====================
+# CREATE ROUTER
 
 router = DefaultRouter()
-# EXPLANATION:
-# - DefaultRouter automatically creates URL patterns for ViewSets
-# - Generates: list, detail, custom actions
 
-
-# ==================== REGISTER VIEWSETS ====================
+#  REGISTER VIEWSETS 
 
 router.register(r'locations', LocationViewSet, basename='location')
 # EXPLANATION:

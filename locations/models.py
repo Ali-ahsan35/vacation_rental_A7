@@ -21,7 +21,7 @@ class Location(models.Model):
     # VARCHAR(200) - Location name (unique, no duplicates)
     name = models.CharField(
         max_length=200, 
-        unique=True,
+        # unique=True,
         help_text="Location name (e.g., Miami Beach)"
     )
     
@@ -64,6 +64,12 @@ class Location(models.Model):
         ordering = ['name']  # Default ordering by name A-Z
         verbose_name = 'Location'
         verbose_name_plural = 'Locations'
+        constraints = [
+            models.UniqueConstraint(
+                fields=["name", "city", "country"],
+                name="unique_location"
+            )
+        ]
     
     def __str__(self):
         """

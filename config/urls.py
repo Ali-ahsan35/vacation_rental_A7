@@ -20,7 +20,6 @@ urlpatterns = [
     
     # API endpoints
     path('api/', include('properties.api_urls')),
-    # EXPLANATION:
     # - 'api/' prefix for all API URLs
     # - Includes all URLs from properties/api_urls.py
     # - /api/locations/ → location list
@@ -30,7 +29,6 @@ urlpatterns = [
     
     # Include property URLs (home, list, detail)
     path('', include('properties.urls')),
-    # EXPLANATION:
     # - '' means no prefix
     # - Includes all URLs from properties/urls.py
     # - / → home page
@@ -42,7 +40,6 @@ urlpatterns = [
 # Serve media files in development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    # EXPLANATION:
     # - Only when DEBUG = True (development)
     # - Serves uploaded images
     # - /media/property_images/image.jpg

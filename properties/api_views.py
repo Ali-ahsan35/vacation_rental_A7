@@ -90,7 +90,6 @@ class LocationViewSet(viewsets.ReadOnlyModelViewSet):
         
         # Get search query from URL parameter
         query = request.query_params.get('q', '').strip()
-        # EXPLANATION:
         # - request.query_params = URL parameters (same as request.GET)
         # - .get('q', '') = Get 'q' parameter, default to empty
         # Example: /autocomplete/?q=miami → query = "miami"
@@ -105,23 +104,13 @@ class LocationViewSet(viewsets.ReadOnlyModelViewSet):
             Q(city__icontains=query) |
             Q(state__icontains=query)
         )[:5]  # Limit to 5 results
-        # EXPLANATION:
-        # - Q() = Complex query
-        # - | = OR operator
-        # - icontains = Case-insensitive contains
-        # - [:5] = Limit to 5 results (LIMIT 5 in SQL)
         
         # Serialize and return
         serializer = self.get_serializer(locations, many=True)
         return Response(serializer.data)
-        # EXPLANATION:
-        # - self.get_serializer() = Get LocationSerializer
-        # - many=True = Multiple objects
-        # - serializer.data = Convert to JSON
-        # - Response() = Return JSON response
 
 
-# ==================== PROPERTY VIEWSET ====================
+# PROPERTY VIEWSET
 
 class PropertyViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -135,9 +124,6 @@ class PropertyViewSet(viewsets.ReadOnlyModelViewSet):
     """
     
     queryset = Property.objects.select_related('location').prefetch_related('images')
-    # EXPLANATION:
-    # - select_related('location') = Join with Location (optimization)
-    # - prefetch_related('images') = Load images (optimization)
     
     # Enable filtering and search
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
@@ -184,92 +170,3 @@ class PropertyViewSet(viewsets.ReadOnlyModelViewSet):
             )
         
         return queryset
-
-
-"""
-VIEWSETS EXPLAINED:
-
-ViewSet = Class that handles API endpoints
-
-class MyViewSet(viewsets.ModelViewSet):
-    queryset = MyModel.objects.all()
-    serializer_class = MySerializer
-
-Automatically creates:
-- GET /api/mymodel/ - List
-- POST /api/mymodel/ - Create
-- GET /api/mymodel/1/ - Detail
-- PUT /api/mymodel/1/ - Update
-- DELETE /api/mymodel/1/ - Delete
-
-
-READONLY VIEWSET:
-
-viewsets.ReadOnlyModelViewSet
-→ Only GET requests (list and detail)
-→ No POST, PUT, DELETE
-
-Good for: Public APIs, read-only data
-
-
-CUSTOM ACTIONS:
-
-@action(detail=False, methods=['get'])
-def custom_endpoint(self, request):
-    return Response({'message': 'Custom!'})
-
-- detail=False → /api/model/custom_endpoint/
-- detail=True → /api/model/1/custom_endpoint/
-- methods = HTTP methods allowed
-
-
-FILTER BACKENDS:
-
-DjangoFilterBackend:
-→ Filter by exact field values
-→ /api/properties/?bedrooms=3&property_type=Villa
-
-SearchFilter:
-→ Search across multiple fields
-→ /api/properties/?search=beach
-
-OrderingFilter:
-→ Sort results
-→ /api/properties/?ordering=price_per_night
-→ /api/properties/?ordering=-created_at (descending)
-
-
-QUERYSET OPTIMIZATION:
-
-select_related('foreign_key_field'):
-→ JOIN in SQL
-→ One query instead of many
-→ Use for ForeignKey
-
-prefetch_related('reverse_foreign_key'):
-→ Separate query, joined in Python
-→ Use for reverse ForeignKey (one-to-many)
-
-Example:
-Property.objects.select_related('location').prefetch_related('images')
-→ Gets properties, locations, and images efficiently
-
-
-REQUEST OBJECT IN DRF:
-
-request.query_params = URL parameters
-request.data = POST/PUT data (JSON)
-request.user = Current user
-request.method = HTTP method
-
-
-RESPONSE OBJECT:
-
-Response(data, status=200)
-→ Returns JSON response
-→ Automatically serializes data
-
-return Response({'message': 'Success'})
-return Response(serializer.data)
-return Response([], status=404)
-"""

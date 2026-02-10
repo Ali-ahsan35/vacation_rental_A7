@@ -1,176 +1,235 @@
-{% extends 'base.html' %}
-
-{% block title %}{{ property.title }} - Vacation Rentals{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %}{{ property.title }} - VacationStay {% endblock %} {% block content %}
 <div class="container my-5">
-    <!-- Back Button -->
-    <div class="mb-3">
-        <a href="{% url 'properties:property_list' %}" class="btn btn-outline-secondary">← Back to Properties</a>
+  <!-- Back Button -->
+  <div class="mb-3">
+    <a
+      href="{% url 'properties:property_list' %}"
+      class="btn btn-outline-secondary"
+      >← Back to Properties</a
+    >
+  </div>
+
+  <!-- Property Title -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <h1>{{ property.title }}</h1>
+      <p class="text-muted">
+        <i class="bi bi-geo-alt"></i> {{ property.location }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Images Gallery (Primary + Thumbnails) -->
+  <div class="row mb-4">
+    <div class="col-12">
+      {% if property.images.count %}
+      <div class="gallery-card">
+        <!-- Primary Image -->
+        {% with first_image=property.images.all|first %}
+        <div class="primary-image-wrap">
+          <img
+            id="primaryImage"
+            src="{{ first_image.image.url }}"
+            class="primary-image"
+            alt="{{ first_image.caption|default:'Property image' }}"
+          />
+
+          {% if first_image.caption %}
+          <div id="primaryCaption" class="primary-caption">
+            {{ first_image.caption }}
+          </div>
+          {% else %}
+          <div id="primaryCaption" class="primary-caption d-none"></div>
+          {% endif %}
+
+          <!-- Optional badge -->
+          <div class="image-badge">
+            <i class="bi bi-images"></i> {{ property.images.count }} photos
+          </div>
+        </div>
+        {% endwith %}
+
+        <!-- Thumbnails -->
+        {% if property.images.count > 1 %}
+        <div class="thumbs-wrap">
+          {% for image in property.images.all %}
+          <button
+            type="button"
+            class="thumb-btn {% if forloop.first %}active{% endif %}"
+            data-full="{{ image.image.url }}"
+            data-caption="{{ image.caption|default:''|escape }}"
+            aria-label="View image {{ forloop.counter }}"
+          >
+            <img
+              src="{{ image.image.url }}"
+              alt="Thumbnail {{ forloop.counter }}"
+            />
+          </button>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% else %}
+      <img
+        src="https://via.placeholder.com/1200x500?text=No+Images+Available"
+        class="img-fluid rounded-4"
+        alt="No images"
+      />
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Property Details -->
+  <div class="row">
+    <!-- Left Column - Details -->
+    <div class="col-md-8">
+      <!-- Quick Info -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="row text-center">
+            <div class="col-3">
+              <h3>{{ property.bedrooms }}</h3>
+              <p class="text-muted">Bedroom{{ property.bedrooms|pluralize }}</p>
+            </div>
+            <div class="col-3">
+              <h3>{{ property.bathrooms }}</h3>
+              <p class="text-muted">
+                Bathroom{{ property.bathrooms|pluralize }}
+              </p>
+            </div>
+            <div class="col-3">
+              <h3>{{ property.max_guests }}</h3>
+              <p class="text-muted">Guest{{ property.max_guests|pluralize }}</p>
+            </div>
+            <div class="col-3">
+              <h3>{{ property.property_type }}</h3>
+              <p class="text-muted">Type</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3>Description</h3>
+          <p>{{ property.description }}</p>
+        </div>
+      </div>
+
+      <!-- Amenities -->
+      {% if property.get_amenities_list %}
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3>Amenities</h3>
+          <div class="row">
+            {% for amenity in property.get_amenities_list %}
+            <div class="col-md-6 mb-2">
+              <span class="badge bg-light text-dark border"
+                >✓ {{ amenity }}</span
+              >
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Location -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3>Location</h3>
+          <p><strong>{{ property.location }}</strong></p>
+          {% if property.address %}
+          <p>{{ property.address }}</p>
+          {% endif %}
+        </div>
+      </div>
     </div>
 
-    <!-- Property Title -->
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <h1>{{ property.title }}</h1>
-            <p class="text-muted">
-                <i class="bi bi-geo-alt"></i> {{ property.location }}
-            </p>
+    <!-- Right Column - Booking Card -->
+    <div class="col-md-4">
+      <div class="card sticky-top" style="top: 20px">
+        <div class="card-body">
+          <h2 class="text-primary">${{ property.price_per_night }}</h2>
+          <p class="text-muted">per night</p>
+
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary btn-lg" type="button">
+              Book Now
+            </button>
+            <button class="btn btn-outline-secondary" type="button">
+              Contact Owner
+            </button>
+          </div>
+
+          <hr />
+
+          <div class="mb-2">
+            <small class="text-muted">
+              {% if property.is_available %}
+              <span class="badge bg-success">Available</span>
+              {% else %}
+              <span class="badge bg-danger">Not Available</span>
+              {% endif %}
+            </small>
+          </div>
+
+          <p class="text-muted small mb-0">
+            <i class="bi bi-shield-check"></i> Secure booking
+          </p>
+          <p class="text-muted small mb-0">
+            <i class="bi bi-clock"></i> Instant confirmation
+          </p>
+          <p class="text-muted small">
+            <i class="bi bi-headset"></i> 24/7 support
+          </p>
         </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Images Gallery -->
-    <div class="row mb-4">
-        <div class="col-md-12">
-            {% if property.images.all %}
-            <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    {% for image in property.images.all %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <img src="{{ image.image.url }}" class="d-block w-100" style="max-height: 500px; object-fit: cover;" alt="{{ image.caption }}">
-                        {% if image.caption %}
-                        <div class="carousel-caption d-none d-md-block">
-                            <p class="bg-dark bg-opacity-75 d-inline-block px-3 py-1 rounded">{{ image.caption }}</p>
-                        </div>
-                        {% endif %}
-                    </div>
-                    {% endfor %}
-                </div>
-                {% if property.images.count > 1 %}
-                <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
-                    <span class="custom-carousel-btn">
-                        <i class="bi bi-chevron-left"></i>
-                    </span>
-                </button>
-
-                <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
-                    <span class="custom-carousel-btn">
-                        <i class="bi bi-chevron-right"></i>
-                    </span>
-                </button>
-
-                {% endif %}
-            </div>
-            {% else %}
-            <img src="https://via.placeholder.com/1200x500?text=No+Images+Available" class="img-fluid" alt="No images">
-            {% endif %}
-        </div>
+  <!-- Similar Properties Section (Optional) -->
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h3 class="mb-3">More properties in {{ property.location.city }}</h3>
+      <a
+        href="{% url 'properties:property_list' %}?location={{ property.location.name }}"
+        class="btn btn-outline-primary"
+      >
+        View All in {{ property.location.city }}
+      </a>
     </div>
-
-    <!-- Property Details -->
-    <div class="row">
-        <!-- Left Column - Details -->
-        <div class="col-md-8">
-            <!-- Quick Info -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="row text-center">
-                        <div class="col-3">
-                            <h3>{{ property.bedrooms }}</h3>
-                            <p class="text-muted">Bedroom{{ property.bedrooms|pluralize }}</p>
-                        </div>
-                        <div class="col-3">
-                            <h3>{{ property.bathrooms }}</h3>
-                            <p class="text-muted">Bathroom{{ property.bathrooms|pluralize }}</p>
-                        </div>
-                        <div class="col-3">
-                            <h3>{{ property.max_guests }}</h3>
-                            <p class="text-muted">Guest{{ property.max_guests|pluralize }}</p>
-                        </div>
-                        <div class="col-3">
-                            <h3>{{ property.property_type }}</h3>
-                            <p class="text-muted">Type</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Description -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h3>Description</h3>
-                    <p>{{ property.description }}</p>
-                </div>
-            </div>
-
-            <!-- Amenities -->
-            {% if property.get_amenities_list %}
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h3>Amenities</h3>
-                    <div class="row">
-                        {% for amenity in property.get_amenities_list %}
-                        <div class="col-md-6 mb-2">
-                            <span class="badge bg-light text-dark border">✓ {{ amenity }}</span>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Location -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h3>Location</h3>
-                    <p><strong>{{ property.location }}</strong></p>
-                    {% if property.address %}
-                    <p>{{ property.address }}</p>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Column - Booking Card -->
-        <div class="col-md-4">
-            <div class="card sticky-top" style="top: 20px;">
-                <div class="card-body">
-                    <h2 class="text-primary">${{ property.price_per_night }}</h2>
-                    <p class="text-muted">per night</p>
-                    
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary btn-lg" type="button">
-                            Book Now
-                        </button>
-                        <button class="btn btn-outline-secondary" type="button">
-                            Contact Owner
-                        </button>
-                    </div>
-
-                    <hr>
-
-                    <div class="mb-2">
-                        <small class="text-muted">
-                            {% if property.is_available %}
-                            <span class="badge bg-success">Available</span>
-                            {% else %}
-                            <span class="badge bg-danger">Not Available</span>
-                            {% endif %}
-                        </small>
-                    </div>
-
-                    <p class="text-muted small mb-0">
-                        <i class="bi bi-shield-check"></i> Secure booking
-                    </p>
-                    <p class="text-muted small mb-0">
-                        <i class="bi bi-clock"></i> Instant confirmation
-                    </p>
-                    <p class="text-muted small">
-                        <i class="bi bi-headset"></i> 24/7 support
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Similar Properties Section (Optional) -->
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <h3 class="mb-3">More properties in {{ property.location.city }}</h3>
-            <a href="{% url 'properties:property_list' %}?location={{ property.location.name }}" class="btn btn-outline-primary">
-                View All in {{ property.location.city }}
-            </a>
-        </div>
-    </div>
+  </div>
 </div>
+{% endblock %} {% block extra_js %}
+<script>
+  // Primary image switcher
+  const primaryImage = document.getElementById("primaryImage");
+  const primaryCaption = document.getElementById("primaryCaption");
+  const thumbs = document.querySelectorAll(".thumb-btn");
+
+  thumbs.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const full = btn.getAttribute("data-full");
+      const caption = btn.getAttribute("data-caption") || "";
+
+      // update active state
+      thumbs.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      // swap image
+      primaryImage.src = full;
+
+      // swap caption
+      if (caption.trim()) {
+        primaryCaption.textContent = caption;
+        primaryCaption.classList.remove("d-none");
+      } else {
+        primaryCaption.textContent = "";
+        primaryCaption.classList.add("d-none");
+      }
+    });
+  });
+</script>
 {% endblock %}

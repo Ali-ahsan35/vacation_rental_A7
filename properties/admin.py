@@ -12,7 +12,7 @@ from .models import Property
 from images.models import PropertyImage  # Import PropertyImage for inline
 
 
-# ==================== INLINE IMAGE UPLOAD ====================
+# INLINE IMAGE UPLOAD 
 
 class PropertyImageInline(admin.TabularInline):
 
@@ -21,8 +21,7 @@ class PropertyImageInline(admin.TabularInline):
     fields = ['image', 'caption', 'is_primary']
 
 
-
-# ==================== PROPERTY ADMIN ====================
+# PROPERTY ADMIN 
 
 @admin.register(Property)
 class PropertyAdmin(admin.ModelAdmin):
@@ -51,7 +50,7 @@ class PropertyAdmin(admin.ModelAdmin):
         'bedrooms',          # Filter by number of bedrooms
         'created_at'         # Filter by date created
     ]
-    # EXPLANATION: location__city is called "field lookup"
+    # location__city is called "field lookup"
     # It accesses the city field of the related Location model
     
     # SEARCH BAR
@@ -71,7 +70,7 @@ class PropertyAdmin(admin.ModelAdmin):
     
     # INLINE MODELS (upload images on the same page!)
     inlines = [PropertyImageInline]
-    # EXPLANATION: This adds the image upload section to the property edit page
+    # This adds the image upload section to the property edit page
     
     # FORM ORGANIZATION
     fieldsets = (
@@ -110,7 +109,7 @@ class PropertyAdmin(admin.ModelAdmin):
         """
         queryset = super().get_queryset(request)
         return queryset.select_related('location')
-        # EXPLANATION: select_related() loads related Location in one query
+        # select_related() loads related Location in one query
         # Instead of 100 queries for 100 properties, only 1 query total
 
 

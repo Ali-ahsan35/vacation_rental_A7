@@ -48,7 +48,7 @@ def property_list(request):
     TEMPLATE: templates/properties/property_list.html
     """
     
-    # ========== GET ALL PROPERTIES ==========
+    # GET ALL PROPERTIES
     # Start with all properties that are available
     properties = Property.objects.select_related('location').prefetch_related('images').filter(is_available=True)
     # EXPLANATION:
@@ -58,7 +58,7 @@ def property_list(request):
     # - filter(is_available=True) = Only show available properties
     
     
-    # ========== FILTER BY LOCATION ==========
+    # FILTER BY LOCATION
     # Get the 'location' query parameter from URL
     location_query = request.GET.get('location', '').strip()
     # EXPLANATION:
@@ -82,7 +82,7 @@ def property_list(request):
         # Example: "Miami" matches "Miami Beach" or city="Miami"
     
     
-    # ========== PAGINATION ==========
+    # PAGINATION
     # Create paginator (9 properties per page)
     paginator = Paginator(properties, 9)
     # EXPLANATION:
@@ -91,35 +91,20 @@ def property_list(request):
     
     # Get the page number from URL
     page_number = request.GET.get('page')
-    # Example: /properties/?page=2 → page_number = "2"
     
     # Get the specific page
     page_obj = paginator.get_page(page_number)
-    # EXPLANATION:
-    # - get_page() returns a Page object
-    # - Handles invalid page numbers gracefully
-    # - page_obj.object_list = properties on this page
-    # - page_obj.has_next() = is there a next page?
-    # - page_obj.number = current page number
-    
-    
-    # ========== PREPARE CONTEXT DATA ==========
+
+        
+    # PREPARE CONTEXT DATA
     context = {
         'page_obj': page_obj,                    # Page object with properties
         'location_query': location_query,        # Search query (for form)
         'total_properties': properties.count(),  # Total count of properties
     }
-    # EXPLANATION:
-    # - context = Dictionary passed to template
-    # - Template can access: {{ page_obj }}, {{ location_query }}, etc.
     
-    
-    # ========== RENDER TEMPLATE ==========
+    # RENDER TEMPLATE
     return render(request, 'properties/property_list.html', context)
-    # EXPLANATION:
-    # - render(request, template, context)
-    # - Loads template and passes context data
-    # - Returns HTML response
 
 
 def property_detail(request, pk):
@@ -136,27 +121,19 @@ def property_detail(request, pk):
     TEMPLATE: templates/properties/property_detail.html
     """
     
-    # ========== GET PROPERTY OR 404 ==========
+    # GET PROPERTY OR 404
     property_obj = get_object_or_404(
         Property.objects.select_related('location').prefetch_related('images'),
         pk=pk
     )
-    # EXPLANATION:
-    # - get_object_or_404() = Get object or show 404 page
-    # - pk=pk = Primary key matches the URL parameter
-    # - If property doesn't exist → 404 error page
-    # - select_related, prefetch_related = Optimization
+
     
-    
-    # ========== PREPARE CONTEXT DATA ==========
+    # PREPARE CONTEXT DATA
     context = {
         'property': property_obj,
     }
-    # EXPLANATION:
-    # - Template can access: {{ property.title }}, {{ property.images.all }}, etc.
     
-    
-    # ========== RENDER TEMPLATE ==========
+    # RENDER TEMPLATE
     return render(request, 'properties/property_detail.html', context)
 
 

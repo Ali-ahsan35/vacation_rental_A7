@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Vacation Rentals{% endblock %}</title>
+    <title>{% block title %} VacationStay{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -372,6 +372,123 @@
         transform: scale(1.1);
     }
 
+    /* ===== Property Detail Gallery (Primary + Thumbs) ===== */
+    .gallery-card {
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+    }
+
+    .primary-image-wrap {
+      position: relative;
+      background: #111;
+    }
+
+    .primary-image {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* subtle overlay so text is always readable */
+    .primary-image-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.18) 0%,
+        rgba(0,0,0,0.00) 40%,
+        rgba(0,0,0,0.35) 100%
+      );
+      pointer-events: none;
+    }
+
+    .primary-caption {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      max-width: 80%;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size: 0.95rem;
+      z-index: 2;
+    }
+
+    .image-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #fff;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* thumbnails */
+    .thumbs-wrap {
+      display: flex;
+      gap: 10px;
+      padding: 12px;
+      overflow-x: auto;
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    .thumb-btn {
+      border: 2px solid transparent;
+      padding: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      width: 120px;
+      height: 78px;
+      flex: 0 0 auto;
+      cursor: pointer;
+      background: #fff;
+      transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+      opacity: 0.85;
+    }
+
+    .thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumb-btn:hover {
+      transform: translateY(-2px);
+      opacity: 1;
+    }
+
+    .thumb-btn.active {
+      border-color: #ffc107;
+      opacity: 1;
+    }
+
+    /* responsive */
+    @media (max-width: 576px) {
+      .primary-image {
+        height: 320px;
+      }
+      .thumb-btn {
+        width: 95px;
+        height: 62px;
+      }
+    }
+
+
     </style>
 
     {% block extra_css %}{% endblock %}
@@ -506,8 +623,8 @@
         <!-- Copyright -->
         <div class="copyright">
           <p class="mb-0">
-            &copy; 2024 VacationStay. All Rights Reserved. |
-            <a href="#" class="text-light">Privacy Policy</a> |
+            &copy; 2024 VacationStay. All Rights Reserved.
+            <a href="#" class="text-light">Privacy Policy</a>
             <a href="#" class="text-light">Terms of Service</a>
           </p>
           <p class="mb-0 mt-2">
