@@ -70,34 +70,69 @@
 </div>
 
 <!-- How It Works -->
-<div class="bg-light py-5">
+<!-- How It Works - Premium Section -->
+<section class="how-it-works-section py-5">
     <div class="container">
-        <h2 class="text-center mb-5">How It Works</h2>
-        <div class="row text-center">
+        <div class="text-center title mb-5">
+            <h2 class="fw-bold display-6">How VacationStay Works</h2>
+            <p class="text-dark opacity-75">
+                Booking your dream vacation rental has never been easier.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Step 1 -->
             <div class="col-md-4">
-                <div class="mb-3">
-                    <span style="font-size: 3rem;">🔍</span>
+                <div class="how-card text-center p-4 h-100">
+                    <div class="icon-wrapper mb-4">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <h4 class="fw-semibold mb-3">Search Destinations</h4>
+                    <p>
+                        Browse thousands of premium vacation rentals across
+                        beaches, mountains, and cities.
+                    </p>
                 </div>
-                <h4>Search</h4>
-                <p>Find your perfect vacation rental by location</p>
             </div>
+
+            <!-- Step 2 -->
             <div class="col-md-4">
-                <div class="mb-3">
-                    <span style="font-size: 3rem;">📅</span>
+                <div class="how-card text-center p-4 h-100">
+                    <div class="icon-wrapper mb-4">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <h4 class="fw-semibold mb-3">Book Securely</h4>
+                    <p>
+                        Reserve your property with our secure and reliable
+                        booking system.
+                    </p>
                 </div>
-                <h4>Book</h4>
-                <p>Reserve your chosen property with our secure booking system</p>
             </div>
+
+            <!-- Step 3 -->
             <div class="col-md-4">
-                <div class="mb-3">
-                    <span style="font-size: 3rem;">🏖️</span>
+                <div class="how-card text-center p-4 h-100">
+                    <div class="icon-wrapper mb-4">
+                        <i class="bi bi-emoji-smile"></i>
+                    </div>
+                    <h4 class="fw-semibold mb-3">Enjoy Your Stay</h4>
+                    <p>
+                        Relax and experience a comfortable, unforgettable
+                        vacation.
+                    </p>
                 </div>
-                <h4>Enjoy</h4>
-                <p>Relax and enjoy your amazing vacation experience</p>
             </div>
         </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-5">
+            <a href="{% url 'properties:property_list' %}" class="btn btn-warning btn-lg px-4">
+                Explore Properties
+            </a>
+        </div>
     </div>
-</div>
+</section>
+
 {% endblock %}
 
 {% block extra_js %}

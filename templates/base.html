@@ -42,38 +42,92 @@
 
       /* Professional Navbar */
       .navbar {
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        padding: 1rem 0;
-      }
+        background: linear-gradient(135deg, #0d6efd 0%, #1e3c72 60%, #0b2d5c 100%);
+        padding: 0.9rem 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+        position: sticky;
+        top: 0;
+        z-index: 1030;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        }
 
-      .navbar-brand {
-        font-weight: 700;
-        font-size: 1.5rem;
-        letter-spacing: 0.5px;
-      }
+        .navbar .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        }
 
-      .navbar-brand i {
-        margin-right: 8px;
-        font-size: 1.8rem;
-      }
-
-      .nav-link {
-        font-weight: 500;
-        padding: 0.5rem 1rem !important;
-        transition: all 0.3s ease;
-      }
-
-      .nav-link:hover {
+        .navbar-brand {
+        font-weight: 800;
+        font-size: 1.4rem;
+        letter-spacing: 0.4px;
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
         color: #fff !important;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 5px;
-      }
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        }
 
-      .nav-link.active {
+        .navbar-brand:hover {
+        transform: translateY(-1px);
+        opacity: 0.95;
+        }
+
+        .navbar-brand i {
+        font-size: 1.7rem;
+        }
+
+        /* Better toggler (mobile) */
+        .navbar-toggler {
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        box-shadow: none !important;
+        }
+        .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25) !important;
+        }
+
+        /* Nav links as pills */
+        .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-weight: 600;
+        padding: 0.55rem 0.95rem !important;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+        position: relative;
+        }
+
+        .navbar-nav .nav-link i {
+        font-size: 1.05rem;
+        opacity: 0.95;
+        }
+
+        /* Hover */
+        .navbar-nav .nav-link:hover {
+        background: rgba(255, 255, 255, 0.16);
+        transform: translateY(-1px);
         color: #fff !important;
-        background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 5px;
-      }
+        }
+
+        /* Active link */
+        .navbar-nav .nav-link.active {
+        background: rgba(255, 255, 255, 0.22);
+        color: #fff !important;
+        }
+
+        /* Optional: small underline indicator for active */
+        .navbar-nav .nav-link.active::after {
+        content: "";
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: -6px;
+        height: 3px;
+        border-radius: 999px;
+        background: rgba(255, 193, 7, 0.95);
+        }
 
       /* Professional Footer */
       footer {
@@ -199,19 +253,19 @@
 
       /* Hero Section */
       /* Hero Section - Make it cooler */
-.hero-section {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 600px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
+    .hero-section {
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                    url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 600px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
 
 /* Cool Search Box with Glass Effect */
     .search-wrapper {
@@ -259,6 +313,65 @@
         box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
     }
 
+        /* ===== HOW IT WORKS PREMIUM ===== */
+    .how-it-works-section {
+        /* background: linear-gradient(135deg, #025e51 0%, #7abcc556 100%); */
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    .title{
+        color: black;
+    }
+
+    .how-card {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 8px;
+        border: 1px solid rgba(34, 110, 155, 0.329);
+        transition: all 0.3s ease;
+    }
+
+    .how-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .icon-wrapper {
+        width: 80px;
+        height: 80px;
+        margin: auto;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon-wrapper i {
+        font-size: 2rem;
+        color: white;
+    }
+
+    .custom-carousel-btn {
+        width: 55px;
+        height: 55px;
+        background: rgba(0, 0, 0, 0.65);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.6rem;
+        transition: all 0.3s ease;
+    }
+
+    .custom-carousel-btn:hover {
+        background: rgba(0, 0, 0, 0.9);
+        transform: scale(1.1);
+    }
+
     </style>
 
     {% block extra_css %}{% endblock %}
@@ -280,7 +393,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto gap-2">
             <li class="nav-item">
               <a
                 class="nav-link {% if request.path == '/' %}active{% endif %}"
